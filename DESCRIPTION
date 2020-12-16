@@ -1,0 +1,16 @@
+Package: StatComp20033
+Type: Package
+Title: 20033's final project for 'Statistical Computing' course
+Version: 1.0
+Date: 2020-12-16
+Author: 20033
+Maintainer: RuiPan <machinepan@mail.ustc.edu.cn>
+Description: 20033's final project for 'Statistical Computing' course.
+License: GPL (>= 2)
+Imports: Rcpp (>= 1.0.5), ggplot2, boot, MASS, RANN, energy, Ball, microbenchmark, bootstrap, DAAG
+LinkingTo: Rcpp
+Encoding: UTF-8
+RoxygenNote: 7.1.1
+VignetteBuilder: knitr
+Suggests: knitr, rmarkdown
+
