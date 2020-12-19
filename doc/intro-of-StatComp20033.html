@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Rui Pan" />
+
+<meta name="date" content="2020-12-19" />
+
+<title>StatComp20033</title>
+
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">StatComp20033</h1>
+<h4 class="author">Rui Pan</h4>
+<h4 class="date">2020-12-19</h4>
+
+
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p><strong>StatComp20033</strong> is a simple R package developed to compute the MSE of four models, and Generate random numbers following Maxwell distribution. Two functions are included, namely, <em>two_fold</em> and <em>rmaxwell</em> . For each function, examples are given. ## Introduction to <em>two_fold</em></p>
+<p>The source R code for <em>two_fold</em> is as follows:</p>
+<p><strong><em>two_fold</em></strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>two_fold&lt;-<span class="cf">function</span>(y,x){</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(y)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  e1 &lt;-<span class="st"> </span>e2 &lt;-<span class="st"> </span>e3 &lt;-<span class="st"> </span>e4 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>,n,n)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="co"># fit models on leave-two-out samples</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(n<span class="dv">-1</span>)) {</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="cf">for</span> (k <span class="cf">in</span> (i<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>n) {</span>
+<span id="cb1-8"><a href="#cb1-8"></a>      y1 &lt;-<span class="st"> </span>y[<span class="op">-</span><span class="kw">c</span>(i,k)]</span>
+<span id="cb1-9"><a href="#cb1-9"></a>      x1 &lt;-<span class="st"> </span>x[<span class="op">-</span><span class="kw">c</span>(i,k)]</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a>      J1 &lt;-<span class="st"> </span><span class="kw">lm</span>(y1 <span class="op">~</span><span class="st"> </span>x1)</span>
+<span id="cb1-12"><a href="#cb1-12"></a>      yhat1 &lt;-<span class="st"> </span>J1<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>J1<span class="op">$</span>coef[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>x[k]</span>
+<span id="cb1-13"><a href="#cb1-13"></a>      yhat1_ &lt;-<span class="st"> </span>J1<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>J1<span class="op">$</span>coef[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>x[i]</span>
+<span id="cb1-14"><a href="#cb1-14"></a>      e1[i,k] &lt;-<span class="st"> </span>y[k] <span class="op">-</span><span class="st"> </span>yhat1</span>
+<span id="cb1-15"><a href="#cb1-15"></a>      e1[k,i] &lt;-<span class="st"> </span>y[i] <span class="op">-</span><span class="st"> </span>yhat1_</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a>      J2 &lt;-<span class="st"> </span><span class="kw">lm</span>(y1 <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(x1<span class="op">^</span><span class="dv">2</span>))</span>
+<span id="cb1-18"><a href="#cb1-18"></a>      yhat2 &lt;-<span class="st"> </span>J2<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>J2<span class="op">$</span>coef[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>x[k]   <span class="op">+</span>J2<span class="op">$</span>coef[<span class="dv">3</span>] <span class="op">*</span><span class="st"> </span>x[k]<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>      yhat2_ &lt;-<span class="st"> </span>J2<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>J2<span class="op">$</span>coef[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>x[i] <span class="op">+</span>J2<span class="op">$</span>coef[<span class="dv">3</span>] <span class="op">*</span><span class="st"> </span>x[i]<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>      e2[i,k] &lt;-<span class="st"> </span>y[k] <span class="op">-</span><span class="st"> </span>yhat2</span>
+<span id="cb1-21"><a href="#cb1-21"></a>      e2[k,i] &lt;-<span class="st"> </span>y[i] <span class="op">-</span><span class="st"> </span>yhat2_</span>
+<span id="cb1-22"><a href="#cb1-22"></a></span>
+<span id="cb1-23"><a href="#cb1-23"></a>      J3 &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">log</span>(y1) <span class="op">~</span><span class="st"> </span>x1)</span>
+<span id="cb1-24"><a href="#cb1-24"></a>      logyhat3 &lt;-<span class="st"> </span>J3<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>J3<span class="op">$</span>coef[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>x[k]</span>
+<span id="cb1-25"><a href="#cb1-25"></a>      yhat3 &lt;-<span class="st"> </span><span class="kw">exp</span>(logyhat3)</span>
+<span id="cb1-26"><a href="#cb1-26"></a>      logyhat3_ &lt;-<span class="st"> </span>J3<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>J3<span class="op">$</span>coef[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>x[i]</span>
+<span id="cb1-27"><a href="#cb1-27"></a>      yhat3_ &lt;-<span class="st"> </span><span class="kw">exp</span>(logyhat3_)</span>
+<span id="cb1-28"><a href="#cb1-28"></a>      e3[i,k] &lt;-<span class="st"> </span>y[k] <span class="op">-</span><span class="st"> </span>yhat3</span>
+<span id="cb1-29"><a href="#cb1-29"></a>      e3[k,i] &lt;-<span class="st"> </span>y[i] <span class="op">-</span><span class="st"> </span>yhat3_</span>
+<span id="cb1-30"><a href="#cb1-30"></a></span>
+<span id="cb1-31"><a href="#cb1-31"></a>      J4 &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">log</span>(y1) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(x1))</span>
+<span id="cb1-32"><a href="#cb1-32"></a>      logyhat4 &lt;-<span class="st"> </span>J4<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>J4<span class="op">$</span>coef[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(x[k])</span>
+<span id="cb1-33"><a href="#cb1-33"></a>      yhat4 &lt;-<span class="st"> </span><span class="kw">exp</span>(logyhat4)</span>
+<span id="cb1-34"><a href="#cb1-34"></a>      e4[i,k] &lt;-<span class="st"> </span>y[k] <span class="op">-</span><span class="st"> </span>yhat4</span>
+<span id="cb1-35"><a href="#cb1-35"></a>      logyhat4_ &lt;-<span class="st"> </span>J4<span class="op">$</span>coef[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>J4<span class="op">$</span>coef[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(x[i])</span>
+<span id="cb1-36"><a href="#cb1-36"></a>      yhat4_ &lt;-<span class="st"> </span><span class="kw">exp</span>(logyhat4_)</span>
+<span id="cb1-37"><a href="#cb1-37"></a>      e4[k,i] &lt;-<span class="st"> </span>y[i] <span class="op">-</span><span class="st"> </span>yhat4_</span>
+<span id="cb1-38"><a href="#cb1-38"></a>    }</span>
+<span id="cb1-39"><a href="#cb1-39"></a>  }</span>
+<span id="cb1-40"><a href="#cb1-40"></a></span>
+<span id="cb1-41"><a href="#cb1-41"></a>  e11&lt;-e22&lt;-e33&lt;-e44&lt;-<span class="kw">numeric</span>()</span>
+<span id="cb1-42"><a href="#cb1-42"></a>  e11&lt;-<span class="kw">c</span>(e1[<span class="kw">which</span>(<span class="kw">upper.tri</span>(e1))],e1[<span class="kw">which</span>(<span class="kw">lower.tri</span>(e1))])</span>
+<span id="cb1-43"><a href="#cb1-43"></a>  e22&lt;-<span class="kw">c</span>(e2[<span class="kw">which</span>(<span class="kw">upper.tri</span>(e2))],e2[<span class="kw">which</span>(<span class="kw">lower.tri</span>(e2))])</span>
+<span id="cb1-44"><a href="#cb1-44"></a>  e33&lt;-<span class="kw">c</span>(e3[<span class="kw">which</span>(<span class="kw">upper.tri</span>(e3))],e3[<span class="kw">which</span>(<span class="kw">lower.tri</span>(e3))])</span>
+<span id="cb1-45"><a href="#cb1-45"></a>  e44&lt;-<span class="kw">c</span>(e4[<span class="kw">which</span>(<span class="kw">upper.tri</span>(e4))],e4[<span class="kw">which</span>(<span class="kw">lower.tri</span>(e4))])</span>
+<span id="cb1-46"><a href="#cb1-46"></a></span>
+<span id="cb1-47"><a href="#cb1-47"></a>  MSE&lt;-<span class="kw">c</span>(<span class="kw">mean</span>(e11<span class="op">^</span><span class="dv">2</span>), <span class="kw">mean</span>(e22<span class="op">^</span><span class="dv">2</span>), <span class="kw">mean</span>(e33<span class="op">^</span><span class="dv">2</span>), <span class="kw">mean</span>(e44<span class="op">^</span><span class="dv">2</span>))</span>
+<span id="cb1-48"><a href="#cb1-48"></a></span>
+<span id="cb1-49"><a href="#cb1-49"></a>  Models&lt;-<span class="kw">c</span>(<span class="st">&#39;Linear&#39;</span>,<span class="st">&#39;Quadratic&#39;</span>,<span class="st">&#39;Exponential&#39;</span>,<span class="st">&#39;Log-Log&#39;</span>)</span>
+<span id="cb1-50"><a href="#cb1-50"></a>  <span class="kw">cbind</span>(Models,MSE)</span>
+<span id="cb1-51"><a href="#cb1-51"></a>}</span></code></pre></div>
+</div>
+<div id="introduction-to-rmaxwell" class="section level2">
+<h2>Introduction to <em>rmaxwell</em></h2>
+<p>The source R code for <em>rmaxwell</em> is as follows:</p>
+<p><strong><em>rmaxwell</em></strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>rmaxwell&lt;-<span class="cf">function</span>(n,sigma){</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  x&lt;-<span class="kw">rnorm</span>(n,<span class="dv">0</span>,sigma)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  y&lt;-<span class="kw">rnorm</span>(n,<span class="dv">0</span>,sigma)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  z&lt;-<span class="kw">rnorm</span>(n,<span class="dv">0</span>,sigma)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  maxwell&lt;-<span class="kw">sqrt</span>(x<span class="op">^</span><span class="dv">2</span><span class="op">+</span>y<span class="op">^</span><span class="dv">2</span><span class="op">+</span>z<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="kw">return</span>(maxwell)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>}</span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
